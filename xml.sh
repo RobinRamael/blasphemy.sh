@@ -22,7 +22,6 @@ function get_elements () {(
 		# if the tag is one without children, just give back the one line
 		echo $xmllines  | XMLLINT_INDENT="" xmllint --format - | grep "^<"$1">.*</"$1">"
 	) else (
-
 		# if the tag has children, get all lines from the 
 		# beginning of every starttag to the end of every 
 		# endtag, loop over and concatenate them, yielding
@@ -46,4 +45,8 @@ function get_line () {
 
 function get_content () {(
 	sed "s/^\ *<[^>]*>//g;s/<\/[^>]*>//g"
+)}
+
+function search_attr() {(
+    grep "<$1[^>]*"$2"=['\"]"$3"['\"][^>]*>"
 )}
