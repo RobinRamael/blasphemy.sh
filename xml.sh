@@ -3,7 +3,7 @@
 # on one line. 
 # The function does not check if the tag is
 # available and returns nothing if this is the case. 
-# It exits when the wrong number (!= 1) of arguments is given
+# It exits when the wrong number of arguments is given
 function get_elements () {(
 	xmllines=`cat` #get stdin
 	if [[ $# -ne 1 ]]; then
