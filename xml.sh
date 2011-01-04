@@ -6,7 +6,6 @@
 # It exits when the wrong number (!= 1) of arguments is given
 function get_elements () {(
 	xmllines=`cat` #get stdin
-	
 	if [[ $# -ne 1 ]]; then
 		echo "usage: get_elements name_of_elements" 1>&2 # to stderr
 		exit
@@ -19,7 +18,6 @@ function get_elements () {(
 	# there is a line that has both start and ending tags.
 	on_one_line=`echo $xmllines  | XMLLINT_INDENT="" xmllint --format - | grep "^<"$1">.*</"$1">"`
 	
-
 	if [[ "$on_one_line" != "" ]]; then (
 		# if the tag is one without children, just give back the one line
 		echo $xmllines  | XMLLINT_INDENT="" xmllint --format - | grep "^<"$1">.*</"$1">"
@@ -30,7 +28,7 @@ function get_elements () {(
 		# endtag, loop over and concatenate them, yielding
 		# the element (on one line) every time the endtag is 
 		# reached.
-		echo $xmllines | XMLLINT_INDENT="" xmllint --format - | sed -n "/^<"$1">/, /<\/"$1">/p" | \
+		echo $xmllines | XMLLINT_INDENT="" xmllint --format - | sed -n "/^<"$1"[^>]*>/, /<\/"$1">/p" | \
 		while read line; do
 			element=$element$line # concatenate
 			endline=`echo $line | grep "</"$1">"` #grep for the endtag
@@ -49,6 +47,3 @@ function get_line () {
 function get_content () {(
 	sed "s/^\ *<[^>]*>//g;s/<\/[^>]*>//g"
 )}
-
-
-cat $1 | get_elements $2
