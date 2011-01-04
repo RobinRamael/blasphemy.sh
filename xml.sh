@@ -47,8 +47,8 @@ function get_line () {
 }
 
 function get_content () {(
-	sed "s/^<[^>]*>//g;s/<\/[^>]*>//g"
+	sed "s/^\ *<[^>]*>//g;s/<\/[^>]*>//g"
 )}
 
 
-cat calvin.xml | get_elements
+cat $1 | get_elements $2
