@@ -39,9 +39,9 @@ function get_elements () {(
 	 ) fi
 )}
 
-function get_line () {
+function get_line () {(
 	head -$1 | tail -1
-}
+)}
 
 function get_content () {(
 	sed "s/^\ *<[^>]*>//g;s/<\/[^>]*>//g"
@@ -49,4 +49,8 @@ function get_content () {(
 
 function search_attr() {(
     grep "<$1[^>]*"$2"=['\"]"$3"['\"][^>]*>"
+)}
+
+function search_content () {(
+    grep "<"$1"[^>]*>"$2"<\/"$1"[^>]*>"
 )}
