@@ -48,9 +48,21 @@ function get_content () {(
 )}
 
 function search_attr() {(
-    grep "<$1[^>]*"$2"=['\"]"$3"['\"][^>]*>"
+    if [[ "$1" == "-l" || "$1" == "--like" ]]; then
+        wildcard="[^\[^\"']*"
+        shift
+    else
+        wildcard=
+    fi
+    grep "<$1[^>]*"$2"=['\"]"$wildcard$3$wildcard"['\"][^>]*>"
 )}
 
 function search_content () {(
-    grep "<"$1"[^>]*>"$2"<\/"$1"[^>]*>"
+    if [[ "$1" == "-l" || "$1" == "--like" ]]; then
+        wildcard="[^\[^\"']*"
+        shift
+    else
+        wildcard=
+    fi
+    grep "<"$1"[^>]*>"$wildcard$2$wildcard"<\/"$1"[^>]*>"      
 )}
