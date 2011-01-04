@@ -5,11 +5,12 @@
 # available and returns nothing if this is the case. 
 # It exits when the wrong number (!= 1) of arguments is given
 function get_elements () {(
-	xmllines=`cat` #get stdin
 	if [[ $# -ne 1 ]]; then
 		echo "usage: get_elements name_of_elements" 1>&2 # to stderr
 		exit
 	fi
+    
+    xmllines=$(cat) #get stdin
 	
 	# we have to deal with an xmltag that has no 
 	# children (and is put on one line by xmllint)
