@@ -30,7 +30,7 @@ function get_elements () {(
 		# reached.
 		echo $xmllines | sed -n "/^<"$1"[^>]*>/, /<\/"$1">/p" | \
 		while read line; do
-			element=$element$line # concatenate
+			element="$element $line" # concatenate
 			endline=`echo $line | grep "</"$1">"` #grep for the endtag
 			if [[ $endline != "" ]]; then
 				echo $element 2> /dev/null # bash complains when we don't do something with all lines we were given
