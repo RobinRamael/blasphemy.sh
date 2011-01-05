@@ -1,4 +1,4 @@
-
+#!/usr/bin/bash
 
 # Takes an xmlfile (or one tag with children) and
 # returns only the tags specified, with each tag 
@@ -40,12 +40,17 @@ function get_elements () {(
 	 ) fi
 )}
 
+# strips the root tags off of stdin.
 function get_content () {(
     while read line; do
 	    echo $line | sed "s/^\ *<[^>]*>//g;s/<\/[^>]*>//g"
 	done
 )}
 
+# only returns those lines where there is a tag with name $1 
+# that has an attribute $2 with value $3
+# takes stdin, coming from get_elements! (otherwise you're on your own)
+# if --like or -l is specified, $3 is searched for partial content.
 function search_attr() {(
     if [[ "$1" == "-l" || "$1" == "--like" ]]; then
         wildcard="[^\[^\"']*"
@@ -58,6 +63,9 @@ function search_attr() {(
     done
 )}
 
+# only returns those lines where tag $1 has content $2
+# takes stdin, coming from get_elements! (otherwise you're on your own)
+# if --like or -l is specified, $3 is searched for partial content.
 function search_content () {(
     if [[ "$1" == "-l" || "$1" == "--like" ]]; then
         wildcard="[^\[^\"']*"
