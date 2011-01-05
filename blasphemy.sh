@@ -44,7 +44,9 @@ function get_line () {(
 )}
 
 function get_content () {(
-	sed "s/^\ *<[^>]*>//g;s/<\/[^>]*>//g"
+    while read line; do
+	    echo $line | sed "s/^\ *<[^>]*>//g;s/<\/[^>]*>//g"
+	done
 )}
 
 function search_attr() {(
@@ -54,7 +56,9 @@ function search_attr() {(
     else
         wildcard=
     fi
-    grep "<$1[^>]*"$2"=['\"]"$wildcard$3$wildcard"['\"][^>]*>"
+    while read line; do
+        echo $line | grep "<$1[^>]*"$2"=['\"]"$wildcard$3$wildcard"['\"][^>]*>"
+    done
 )}
 
 function search_content () {(
@@ -64,5 +68,7 @@ function search_content () {(
     else
         wildcard=
     fi
-    grep "<"$1"[^>]*>"$wildcard$2$wildcard"<\/"$1"[^>]*>"      
+    while read line; do
+        echo $line | grep "<"$1"[^>]*>"$wildcard$2$wildcard"<\/"$1"[^>]*>"
+    done;
 )}
