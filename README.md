@@ -11,7 +11,7 @@ Always read the blasphemy.sh file in first.
 get_elements returns all children of the root with the given name.
 Return all elements with the tag "book":
     
-    cat examples/books.xml | get\_elements book
+    cat examples/books.xml | get_elements book
 
 Search for attributes with search\_attr and search\_content, use --like or -l for partial search:
 	
