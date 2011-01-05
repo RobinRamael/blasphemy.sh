@@ -5,9 +5,9 @@
 # available and returns nothing if this is the case. 
 # It exits when the wrong number of arguments is given
 function get_elements () {(
-	xmllines=`XMLLINT_INDENT="" xmllint --format -` #get stdin
+	xmllines=`XMLLINT_INDENT="" xmllint --format -` #get stdin and format (without indents) with xmllint
 	if [[ $# -ne 1 ]]; then
-		echo "usage: get_elements name_of_elements" 1>&2 # to stderr
+		echo "usage: get_elements name_of_elements" 1>&2
 		exit
 	fi
 	
@@ -37,10 +37,6 @@ function get_elements () {(
 			fi
 		done
 	 ) fi
-)}
-
-function get_line () {(
-	head -$1 | tail -1
 )}
 
 function get_content () {(
