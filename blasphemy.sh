@@ -1,4 +1,6 @@
-# Takes an xmlfile (or a tag with children) and
+
+
+# Takes an xmlfile (or one tag with children) and
 # returns only the tags specified, with each tag 
 # on one line. 
 # The function does not check if the tag is
@@ -10,16 +12,15 @@ function get_elements () {(
 		echo "usage: get_elements name_of_elements" 1>&2
 		exit
 	fi
-	
-	# we have to deal with an xmltag that has no 
-	# children (and is put on one line by xmllint)
-	# differently than we would a tag with children 
-	# that is put on multiple lines, so we check if
-	# there is a line that has both start and ending tags.
+
+
+	# xmllint puts tags with children on multiple lines
+	# and tags without children on one line.
+    # Check if there is a line that has both start and ending tags.
 	on_one_line=`echo $xmllines | grep "^<"$1">.*</"$1">"`
 	
 	if [[ "$on_one_line" != "" ]]; then (
-		# if the tag is one without children, just give back the one line
+		# if the tag is one without children, just give back the one line 
 		echo $xmllines | grep "^<"$1">.*</"$1">"
 	) else (
 		# if the tag has children, get all lines from the 
